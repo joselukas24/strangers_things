@@ -11,6 +11,12 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Check if the token is available
+      if (!token || !token.token) {
+        // Handle the scenario where the token is not available
+        return;
+      }
+
       try {
         const response = await fetch(`${BASE_URL}/users/me`, {
           headers: {
@@ -19,7 +25,6 @@ export default function ProfilePage() {
           },
         });
         const result = await response.json();
-        console.log(result.data.posts);
         if (
           result.success === true &&
           result.data.posts &&
@@ -36,13 +41,13 @@ export default function ProfilePage() {
     };
 
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <div>
-      <Header />
+      <Header token={token} />
       <div className="posts-section">
-        <h2>Your Posts</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">Your Posts</h2>
         {userData.posts &&
           userData.posts.map((post) => (
             <div
@@ -64,7 +69,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="messages-section">
-        <h2>Your Messages</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">Your Messages</h2>
         {userData.messages &&
           userData.messages.map((message) => (
             <div
