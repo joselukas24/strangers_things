@@ -38,9 +38,8 @@ export default function PostFormPage() {
       });
 
       const result = await response.json();
-      console.log(result);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 

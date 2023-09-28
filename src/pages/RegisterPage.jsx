@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import Header from "../components/Header";
 import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const COHORT_NAME = "2302-acc-pt-web-pt-b";
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
@@ -9,6 +10,7 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { token, setToken } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -35,7 +37,16 @@ function RegisterPage() {
           }),
         });
         const result = await response.json();
-        setToken(result.data.token);
+        if (result.data.token) {
+          localStorage.setItem(
+            "token",
+            JSON.stringify({
+              token: result.data.token,
+            })
+          );
+          setToken(result.data.token);
+          navigate("/");
+        }
       } catch (err) {
         console.error(err);
       }

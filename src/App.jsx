@@ -13,7 +13,8 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
+      const localStorageToken = JSON.parse(localStorage.getItem("token"));
+      setToken(localStorageToken);
     }
   }, []);
 
