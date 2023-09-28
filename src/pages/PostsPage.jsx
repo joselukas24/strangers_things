@@ -13,7 +13,6 @@ export default function PostsPage({ token }) {
       try {
         const response = await fetch(`${BASE_URL}/posts`);
         const result = await response.json();
-        console.log(result.data.posts);
         setPosts(result.data.posts);
       } catch (err) {
         console.error(err);

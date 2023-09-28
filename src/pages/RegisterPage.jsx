@@ -24,7 +24,7 @@ function RegisterPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow flex items-center justify-center">
-        <div className="bg-white p-8 rounded shadow-md w-96">
+        <div className="bg-white p-8 rounded shadow-lg w-96">
           <h1 className="text-3xl mb-6 text-center">Register</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -41,6 +41,8 @@ function RegisterPage() {
                 value={username}
                 onChange={handleUsernameChange}
                 className="mt-1 p-2 w-full border rounded-md"
+                required
+                minLength="3"
               />
             </div>
             <div className="mb-4">
@@ -57,6 +59,8 @@ function RegisterPage() {
                 value={password}
                 onChange={handlePasswordChange}
                 className="mt-1 p-2 w-full border rounded-md"
+                required
+                minLength="6"
               />
             </div>
             <button

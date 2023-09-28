@@ -5,17 +5,31 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const logIn = async () => {
+    // Send a request to the login endpoint
+    // On success, set the token in state and sessionStorage
+    // Example:
+    // try {
+    //   const response = await fetch('YOUR_LOGIN_ENDPOINT', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ username, password }),
+    //   });
+    //   const data = await response.json();
+    //   setToken(data.token);
+    //   sessionStorage.setItem('token', data.token);
+    // } catch (error) {
+    //   console.error("Error during login:", error);
+    // }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle login logic here
     console.log("Username:", username);
     console.log("Password:", password);
   };
@@ -41,6 +55,8 @@ function LoginPage() {
                 value={username}
                 onChange={handleUsernameChange}
                 className="mt-1 p-2 w-full border rounded-md"
+                required
+                minLength="3"
               />
             </div>
             <div className="mb-4">
@@ -57,6 +73,8 @@ function LoginPage() {
                 value={password}
                 onChange={handlePasswordChange}
                 className="mt-1 p-2 w-full border rounded-md"
+                required
+                minLength="6"
               />
             </div>
             <button
