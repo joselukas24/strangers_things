@@ -18,7 +18,6 @@ export default function PostsPage() {
           headers: token ? { Authorization: `Bearer ${token.token}` } : {},
         });
         const result = await response.json();
-        console.log(result);
         setPosts(result.data.posts);
       } catch (err) {
         console.error(err);

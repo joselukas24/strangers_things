@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PostsPage from "./pages/PostsPage";
 import PostFormPage from "./pages/PostFormPage";
+import ProfilePage from "./pages/ProfilePage";
 import { UserContext } from "./UserContext";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/posts" element={<PostsPage />}></Route>
           <Route path="/post-form" element={<PostFormPage />}></Route>
+          <Route path="/profile" element={<ProfilePage />}></Route>
         </Routes>
       </UserContext.Provider>
     </div>

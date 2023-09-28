@@ -33,7 +33,6 @@ function LoginPage() {
           }),
         });
         const result = await response.json();
-        console.log(result);
         if (result.data.token) {
           localStorage.setItem(
             "token",
