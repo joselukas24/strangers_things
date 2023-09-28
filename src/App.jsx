@@ -3,6 +3,7 @@ import MainPage from "./pages/MainPage";
 import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import PostsPage from "./pages/PostsPage";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -15,6 +16,7 @@ function App() {
         ></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/posts" element={<PostsPage />}></Route>
       </Routes>
     </div>
   );
