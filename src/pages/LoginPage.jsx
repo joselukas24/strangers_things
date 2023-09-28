@@ -12,6 +12,7 @@ function LoginPage() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -33,7 +34,7 @@ function LoginPage() {
           }),
         });
         const result = await response.json();
-        if (result.data.token) {
+        if (result.success === true) {
           localStorage.setItem(
             "token",
             JSON.stringify({
@@ -42,6 +43,9 @@ function LoginPage() {
           );
           setToken(result.data.token);
           navigate("/");
+        }
+        if (result.success === false) {
+          setLoginError(true);
         }
       } catch (err) {
         console.error(err);
@@ -100,6 +104,18 @@ function LoginPage() {
             >
               Log in
             </button>
+            <br />
+            <br />
+            <div
+              className={
+                !loginError
+                  ? "invisible"
+                  : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center"
+              }
+            >
+              <strong className="font-bold ">Error! </strong>
+              <span>Wrong email or password, please try again</span>
+            </div>
           </form>
         </div>
       </div>

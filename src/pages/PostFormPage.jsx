@@ -8,8 +8,6 @@ const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 export default function PostFormPage() {
   const { token, setToken } = useContext(UserContext);
 
-  useEffect(() => console.log(token), []);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
