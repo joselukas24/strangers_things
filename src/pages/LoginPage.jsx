@@ -1,37 +1,43 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../components/Header";
+import { UserContext } from "../UserContext";
+
+const COHORT_NAME = "2302-acc-pt-web-pt-b";
+const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 function LoginPage() {
+  const { token, setToken } = useContext(UserContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const logIn = async () => {
-    // Send a request to the login endpoint
-    // On success, set the token in state and sessionStorage
-    // Example:
-    // try {
-    //   const response = await fetch('YOUR_LOGIN_ENDPOINT', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ username, password }),
-    //   });
-    //   const data = await response.json();
-    //   setToken(data.token);
-    //   sessionStorage.setItem('token', data.token);
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    // }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
+    const login = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/users/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: {
+              username,
+              password,
+            },
+          }),
+        });
+        const result = await response.json();
+        console.log(result.data.token);
+        setToken(result.data.token);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    login();
   };
 
   return (

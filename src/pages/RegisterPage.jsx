@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../components/Header";
+import { UserContext } from "../UserContext";
+
+const COHORT_NAME = "2302-acc-pt-web-pt-b";
+const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { token, setToken } = useContext(UserContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -15,9 +20,27 @@ function RegisterPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log("Username:", username);
-    console.log("Password:", password);
+    const registerUser = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/users/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: {
+              username,
+              password,
+            },
+          }),
+        });
+        const result = await response.json();
+        setToken(result.data.token);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    registerUser();
   };
 
   return (

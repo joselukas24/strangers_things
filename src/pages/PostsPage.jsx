@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import { UserContext } from "../UserContext";
 
 const COHORT_NAME = "2302-acc-pt-web-pt-b";
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
-export default function PostsPage({ token }) {
+export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
+  const { token, setToken } = useContext(UserContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -36,13 +39,21 @@ export default function PostsPage({ token }) {
     <div>
       <Header token={token} />
       <div className="max-w-screen-xl mx-auto p-4">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search posts..."
-          className="p-2 mb-4 border rounded-md"
-        />
+        <div className="flex justify-between items-center mb-4">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search posts..."
+            className="p-2 border rounded-md"
+          />
+          <Link
+            to="/post-form"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
+            Create Post
+          </Link>
+        </div>
         {filteredPosts.map((post) => (
           <div
             key={post._id}
