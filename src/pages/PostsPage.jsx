@@ -85,6 +85,7 @@ export default function PostsPage() {
       const result = await response.json();
 
       if (result.success) {
+        alert("Message sent successfully");
         console.log("Message sent successfully", result.data.message);
         return result.data.message;
       } else {
@@ -151,6 +152,7 @@ export default function PostsPage() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   sendMessage(post._id, e.target.message.value);
+                  e.target.message.value = "";
                 }}
                 className="mt-2"
               >
