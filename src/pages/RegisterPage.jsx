@@ -10,6 +10,9 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { token, setToken } = useContext(UserContext);
+  const [registerError, setRegisterError] = useState(false);
+  const [registerErrorMessage, setRegisterErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -37,7 +40,7 @@ function RegisterPage() {
           }),
         });
         const result = await response.json();
-        if (result.data.token) {
+        if (result.success === true) {
           localStorage.setItem(
             "token",
             JSON.stringify({
@@ -46,6 +49,10 @@ function RegisterPage() {
           );
           setToken(result.data.token);
           navigate("/");
+        }
+        if (result.success === false) {
+          setRegisterErrorMessage(result.error.message);
+          setRegisterError(true);
         }
       } catch (err) {
         console.error(err);
@@ -103,6 +110,18 @@ function RegisterPage() {
             >
               Log in
             </button>
+            <br />
+            <br />
+            <div
+              className={
+                !registerError
+                  ? "invisible"
+                  : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center"
+              }
+            >
+              <strong className="font-bold ">Error! </strong>
+              <span>{registerErrorMessage}</span>
+            </div>
           </form>
         </div>
       </div>

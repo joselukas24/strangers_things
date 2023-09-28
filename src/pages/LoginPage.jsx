@@ -34,6 +34,7 @@ function LoginPage() {
           }),
         });
         const result = await response.json();
+        console.log(result);
         if (result.success === true) {
           localStorage.setItem(
             "token",
