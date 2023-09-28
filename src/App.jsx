@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import { useState } from "react";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -11,6 +13,8 @@ function App() {
           path="/"
           element={<MainPage token={token} setToken={setToken} />}
         ></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
       </Routes>
     </div>
   );
