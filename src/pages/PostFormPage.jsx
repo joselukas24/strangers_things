@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import Header from "../components/Header";
 import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const COHORT_NAME = "2302-acc-pt-web-pt-b";
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 export default function PostFormPage() {
   const { token, setToken } = useContext(UserContext);
-
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -16,7 +17,6 @@ export default function PostFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch(`${BASE_URL}/posts`, {
         method: "POST",
@@ -34,8 +34,12 @@ export default function PostFormPage() {
           },
         }),
       });
-
       const result = await response.json();
+      console.log(result);
+      if (result.success === true) {
+        alert("Post added successfully");
+        navigate("/posts");
+      }
     } catch (error) {
       console.error(error);
     }
