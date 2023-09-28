@@ -35,7 +35,6 @@ export default function PostFormPage() {
         }),
       });
       const result = await response.json();
-      console.log(result);
       if (result.success === true) {
         alert("Post added successfully");
         navigate("/posts");
