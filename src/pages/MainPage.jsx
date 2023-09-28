@@ -1,10 +1,17 @@
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function MainPage() {
   const { token, setToken } = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const userLocalStorage = JSON.parse(localStorage.getItem("token"));
+      setToken(userLocalStorage);
+    }
+  }, []);
 
   return (
     <div>

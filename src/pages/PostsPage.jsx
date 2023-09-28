@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { UserContext } from "../UserContext";
@@ -47,12 +47,14 @@ export default function PostsPage() {
             placeholder="Search posts..."
             className="p-2 border rounded-md"
           />
-          <Link
-            to="/post-form"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Create Post
-          </Link>
+          {token && (
+            <Link
+              to="/post-form"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Create Post
+            </Link>
+          )}
         </div>
         {filteredPosts.map((post) => (
           <div

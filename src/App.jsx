@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PostsPage from "./pages/PostsPage";
+import PostFormPage from "./pages/PostFormPage";
 import { UserContext } from "./UserContext";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/posts" element={<PostsPage />}></Route>
+          <Route path="/post-form" element={<PostFormPage />}></Route>
         </Routes>
       </UserContext.Provider>
     </div>

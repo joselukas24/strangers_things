@@ -1,12 +1,14 @@
 import { useState, useContext } from "react";
 import Header from "../components/Header";
 import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const COHORT_NAME = "2302-acc-pt-web-pt-b";
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 function LoginPage() {
   const { token, setToken } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,8 +33,17 @@ function LoginPage() {
           }),
         });
         const result = await response.json();
-        console.log(result.data.token);
-        setToken(result.data.token);
+        console.log(result);
+        if (result.data.token) {
+          localStorage.setItem(
+            "token",
+            JSON.stringify({
+              token: result.data.token,
+            })
+          );
+          setToken(result.data.token);
+          navigate("/");
+        }
       } catch (err) {
         console.error(err);
       }
@@ -83,6 +94,7 @@ function LoginPage() {
                 minLength="6"
               />
             </div>
+
             <button
               type="submit"
               className="w-full bg-blue-500 text-white p-2 rounded-md"
